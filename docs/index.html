@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calegari Meter</title>
+<meta name="description" content="A pocket light meter you print at home: AMOLED face, translucent dome, knurled dial. Reflected and incident light, flash, colour temperature and the zone system. Open source.">
+<meta property="og:title" content="Calegari Meter">
+<meta property="og:description" content="A pocket light meter you print at home, for the Calegari View 2. Open source.">
+<meta property="og:image" content="https://achillecalegari.github.io/calegari-meter/img/01_three_quarter.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111112;
+    --ink-2: #505056;
+    --ink-3: #86868b;
+    --line: #e6e6e8;
+    --paper: #ffffff;
+    --soft: #f5f5f7;
+    --red: #c8102e;
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; height: auto; }
+  .gallery img, .step img, .split img { width: 100%; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.86);
+        backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px);
+        border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 52px; }
+  nav .brand { font-weight: 600; letter-spacing: -0.01em; text-decoration: none; display: flex; gap: 10px; align-items: center; }
+  nav .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--red); display: inline-block; }
+  nav ul { list-style: none; display: flex; gap: 26px; margin: 0; padding: 0; font-size: 14px; }
+  nav ul a { text-decoration: none; color: var(--ink-2); }
+  nav ul a:hover { color: var(--ink); }
+
+  /* hero */
+  .hero { text-align: center; padding: 72px 0 24px; }
+  .eyebrow { color: var(--red); font-weight: 600; font-size: 15px; letter-spacing: .02em; margin: 0 0 12px; }
+  h1 { font-size: clamp(44px, 8vw, 88px); line-height: 1.02; letter-spacing: -0.035em; margin: 0; font-weight: 700; }
+  .lede { font-size: clamp(19px, 2.4vw, 26px); color: var(--ink-2); max-width: 760px; margin: 20px auto 0; letter-spacing: -0.01em; line-height: 1.35; }
+  .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 32px 0 8px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; font-size: 16px; font-weight: 500;
+         text-decoration: none; border: 1px solid var(--ink); }
+  .btn.primary { background: var(--ink); color: #fff; }
+  .btn.primary:hover { background: #2a2a2d; }
+  .btn.ghost:hover { background: var(--soft); }
+  .hero-img { margin: 24px auto 0; width: 100%; max-width: 1000px; }
+
+  /* sections */
+  section { padding: 96px 0; }
+  section.soft { background: var(--soft); }
+  h2 { font-size: clamp(32px, 5vw, 56px); letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 18px; font-weight: 700; }
+  h3 { font-size: 21px; letter-spacing: -0.01em; margin: 0 0 8px; font-weight: 600; }
+  .kicker { color: var(--ink-3); font-weight: 600; font-size: 15px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: .08em; }
+  .prose { max-width: 720px; font-size: 19px; color: var(--ink-2); }
+  .prose p { margin: 0 0 18px; }
+  .prose strong { color: var(--ink); font-weight: 600; }
+
+  /* specs */
+  .specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line);
+           border-radius: 18px; overflow: hidden; margin-top: 40px; }
+  .spec { background: var(--paper); padding: 26px 26px 24px; }
+  .spec .k { font-size: 13px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .07em; font-weight: 600; }
+  .spec .v { font-size: 22px; font-weight: 600; letter-spacing: -0.015em; margin-top: 6px; line-height: 1.25; }
+  .spec .s { font-size: 15px; color: var(--ink-2); margin-top: 6px; }
+
+  /* gallery */
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+  .gallery figure { margin: 0; background: var(--paper); border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+  .gallery figcaption { font-size: 14px; color: var(--ink-3); padding: 12px 16px 16px; }
+  .wide { grid-column: span 3; }
+
+  /* layers */
+  .split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+  .layers { list-style: none; padding: 0; margin: 0; counter-reset: l; }
+  .layers li { padding: 16px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 34px 1fr; }
+  .layers li:last-child { border-bottom: 1px solid var(--line); }
+  .layers li::before { counter-increment: l; content: counter(l); font-weight: 700; color: var(--red); }
+  .layers b { display: block; font-weight: 600; }
+  .layers span { color: var(--ink-2); font-size: 16px; }
+
+  /* steps */
+  .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 40px; }
+  .step { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+  .step .t { padding: 18px 22px 22px; }
+  .step .n { color: var(--red); font-weight: 700; font-size: 14px; }
+  .step p { margin: 6px 0 0; color: var(--ink-2); font-size: 16px; }
+
+  /* checks */
+  .checks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+  .check { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); }
+  .check .big { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; }
+  .check .big small { font-size: 18px; font-weight: 600; }
+  .check p { margin: 8px 0 0; color: var(--ink-2); font-size: 15px; }
+  .note { margin-top: 28px; font-size: 16px; color: var(--ink-2); max-width: 760px; }
+
+  /* downloads */
+  .dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+  .dl a { display: block; padding: 24px; border-radius: 18px; border: 1px solid var(--line); text-decoration: none; background: var(--paper); }
+  .dl a:hover { border-color: var(--ink); }
+  .dl b { display: block; font-size: 19px; letter-spacing: -0.01em; }
+  .dl span { display: block; color: var(--ink-2); font-size: 15px; margin-top: 6px; }
+  .dl i { font-style: normal; color: var(--red); font-weight: 600; font-size: 14px; display: block; margin-top: 14px; }
+
+  /* screens */
+  section.dark { background: #000; color: #f2f0ec; }
+  section.dark .kicker { color: #8a8884; }
+  section.dark .prose { color: #b9b7b2; }
+  .screens { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
+  .screens figure { margin: 0; }
+  .screens img { width: 100%; border-radius: 14px; border: 1px solid #1c1c1c; }
+  .screens figcaption { font-size: 14px; color: #8a8884; padding: 10px 2px 0; }
+
+  footer { padding: 48px 0 64px; color: var(--ink-3); font-size: 14px; border-top: 1px solid var(--line); }
+  footer a { color: var(--ink-2); }
+
+  @media (max-width: 900px) {
+    nav ul { display: none; }
+    .specs, .gallery, .checks, .dl, .screens { grid-template-columns: 1fr 1fr; }
+    .wide { grid-column: span 2; }
+    .split, .steps { grid-template-columns: 1fr; }
+    section { padding: 72px 0; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 16px; }
+    .specs, .gallery, .checks, .dl { grid-template-columns: 1fr; }
+    .wide { grid-column: span 1; }
+    .hero { padding-top: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="dot"></span>Calegari Meter</a>
+    <ul>
+      <li><a href="#why">Why</a></li>
+      <li><a href="#specs">Specs</a></li>
+      <li><a href="#screens">Screens</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#build">Build</a></li>
+      <li><a href="https://github.com/achillecalegari/calegari-meter">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Open-source light meter</p>
+    <h1>Calegari Meter</h1>
+    <p class="lede">A pocket light meter you print at home. An AMOLED face, a translucent dome on top, a knurled dial and a red key. Reflected and incident light, flash, colour temperature and the zone system.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/achillecalegari/calegari-meter/blob/main/docs/assembly.md">Build guide</a>
+      <a class="btn ghost" href="https://github.com/achillecalegari/calegari-meter/archive/refs/heads/main.zip">Download everything</a>
+    </div>
+    <img class="hero-img" src="img/01_three_quarter.jpg" alt="Calegari Meter, three-quarter view" width="1600" height="1200">
+  </div>
+</header>
+
+<section id="why">
+  <div class="wrap">
+    <p class="kicker">Why</p>
+    <h2>A meter for a view camera.</h2>
+    <div class="prose">
+      <p>The <a href="https://achillecalegari.github.io/calegari-view-2/">Calegari View 2</a> wants a meter that is quick, quiet and exact, and that speaks the language of a lens in a Copal shutter: <strong>whole stops of time</strong>, thirds of aperture, <strong>long exposures</strong> on slow film, a flash now and then.</p>
+      <p>The meters that do all of that are big or expensive. This one is a small black block that sits in the hand like a first iPod shuffle, with the manners of a Leica: one red dot, one red key, a dial you turn without looking. Its shape comes from the object, not from the board inside it.</p>
+      <p>Seven printed parts, three bought boards, a battery and <strong>seven wires</strong>. No screws, no glue.</p>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="specs">
+  <div class="wrap">
+    <p class="kicker">Specifications</p>
+    <h2>Small, and complete.</h2>
+    <div class="specs">
+      <div class="spec"><div class="k">Size</div><div class="v">41.6 × 55.7 × 21.4 mm</div><div class="s">plus the dial and the dome on top</div></div>
+      <div class="spec"><div class="k">Screen</div><div class="v">1.8″ AMOLED</div><div class="s">368 × 448, touch; black, warm white and one red</div></div>
+      <div class="spec"><div class="k">Light</div><div class="v">Reflected and incident</div><div class="s">a 44° cone through the port; the dome for incident, recognised by itself</div></div>
+      <div class="spec"><div class="k">Answer</div><div class="v">Aperture or shutter priority</div><div class="s">whole stops or thirds of time, ISO 6 to 6400, compensation in thirds</div></div>
+      <div class="spec"><div class="k">Film</div><div class="v">Reciprocity</div><div class="s">HP5, FP4, Delta 100 and 400, Pan F, Tri-X, Acros II</div></div>
+      <div class="spec"><div class="k">Flash</div><div class="v">Cordless</div><div class="s">the aperture in tenths, and the share of flash and ambient</div></div>
+      <div class="spec"><div class="k">Colour</div><div class="v">Kelvin, tint, filter</div><div class="s">eight spectral channels; the Wratten filter; flicker at 100 or 120 Hz</div></div>
+      <div class="spec"><div class="k">Zone</div><div class="v">III to VIII</div><div class="s">shadows and highlights: the range, N±, the exposure</div></div>
+      <div class="spec"><div class="k">Bought</div><div class="v">About 60 EUR</div><div class="s">Waveshare AMOLED board, Adafruit AS7341, an encoder, a LiPo cell</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="kicker">Gallery</p>
+    <h2>Every angle.</h2>
+    <div class="gallery">
+      <figure><img src="img/02_front.jpg" alt="Front" loading="lazy"><figcaption>Front: the glass stands 0.6 mm proud; the band above it is the top plate</figcaption></figure>
+      <figure><img src="img/03_side.jpg" alt="Side" loading="lazy"><figcaption>Right side: the red key, the power key, USB-C</figcaption></figure>
+      <figure><img src="img/05_top.jpg" alt="Top" loading="lazy"><figcaption>Top: the dome over the sensor, the knurled dial</figcaption></figure>
+      <figure><img src="img/04_rear.jpg" alt="Rear" loading="lazy"><figcaption>Back: a plain lid, the shadow line all round</figcaption></figure>
+      <figure><img src="img/08_dome_parked.jpg" alt="Dome parked" loading="lazy"><figcaption>Reflected light: the dome parks under the foot</figcaption></figure>
+      <figure><img src="img/07_inside.jpg" alt="Inside" loading="lazy"><figcaption>Inside: the battery behind the screen, sensor and dial across the top</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="screens">
+  <div class="wrap">
+    <p class="kicker">Screens</p>
+    <h2>The answer, large.</h2>
+    <p class="prose">The biggest thing on the screen is always the answer, set like the numbers on a shutter dial. The value the dial changes has a red line under it. At the foot a scale slides to the answer like a real dial. Every screen here is drawn by the firmware's own code.</p>
+    <div class="screens">
+      <figure><img src="img/ui/01_light_reflected.png" alt="Light, reflected" loading="lazy"><figcaption>Light, reflected</figcaption></figure>
+      <figure><img src="img/ui/04_light_long_hp5.png" alt="Long exposure" loading="lazy"><figcaption>29 s on HP5, reciprocity corrected</figcaption></figure>
+      <figure><img src="img/ui/07_flash_reading.png" alt="Flash" loading="lazy"><figcaption>Flash: the aperture in tenths</figcaption></figure>
+      <figure><img src="img/ui/08_colour_tungsten.png" alt="Colour" loading="lazy"><figcaption>Colour: 3180 K, an 80A for daylight film</figcaption></figure>
+      <figure><img src="img/ui/09_colour_fluorescent.png" alt="Colour, fluorescent" loading="lazy"><figcaption>Green tint and flicker under a tube</figcaption></figure>
+      <figure><img src="img/ui/11_zone_readings.png" alt="Zone" loading="lazy"><figcaption>Zone: 5.7 stops, develop N−1</figcaption></figure>
+      <figure><img src="img/ui/12_modes.png" alt="Modes" loading="lazy"><figcaption>Four modes, and the settings</figcaption></figure>
+      <figure><img src="img/ui/14_settings_film.png" alt="Settings" loading="lazy"><figcaption>Settings: the dial changes, the red key chooses</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="how">
+  <div class="wrap split">
+    <div><img src="img/06_exploded.jpg" alt="Exploded view" loading="lazy"></div>
+    <div>
+      <p class="kicker">How it works</p>
+      <h2>Two shells, three boards.</h2>
+      <ol class="layers">
+        <li><div><b>The screen board</b><span>Waveshare's ESP32-S3 with the AMOLED, charger, power key, speaker and USB-C on one board behind the glass. It is the face.</span></div></li>
+        <li><div><b>The sensor</b><span>An AS7341 with eleven channels lies across the top under a port. The port's rim is the stop for reflected light.</span></div></li>
+        <li><div><b>The dome</b><span>A solid half sphere of translucent PETG, pressed into a seat over the port. The sensor's own LED, under its flange, tells the meter it is there.</span></div></li>
+        <li><div><b>The dial</b><span>An EC11 encoder threaded into the top wall, a knurled dial on its shaft.</span></div></li>
+        <li><div><b>The keys</b><span>A red key and a black pill snap through the side wall onto the board's own buttons.</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="wrap">
+    <p class="kicker">Build</p>
+    <h2>Seven wires, one hour.</h2>
+    <p class="prose">Three plates, no supports: every curve lies in the plane of the bed, every rising edge is vertical or a 45° chamfer. Solder seven wires, drop the screen in, snap the lid on, load the firmware with one command.</p>
+    <div class="steps">
+      <div class="step"><img src="img/wiring.svg" alt="Wiring" loading="lazy"><div class="t"><div class="n">Step 1</div><h3>Seven wires</h3><p>Four to the sensor, three to the encoder, all to one header on the back of the screen board.</p></div></div>
+      <div class="step"><img src="img/asm/asm_2.jpg" alt="Screen in" loading="lazy"><div class="t"><div class="n">Step 3</div><h3>The screen</h3><p>Face first into the window, onto the ribs, its buttons behind the two keys.</p></div></div>
+      <div class="step"><img src="img/asm/asm_3.jpg" alt="Sensor and dial" loading="lazy"><div class="t"><div class="n">Step 4</div><h3>Sensor and dial</h3><p>The sensor into its groove under the port, the encoder threaded into the top.</p></div></div>
+      <div class="step"><img src="img/asm/asm_4.jpg" alt="Battery" loading="lazy"><div class="t"><div class="n">Step 5</div><h3>Battery, then the lid</h3><p>The tray, the cell, four snaps. The dial and the dome press on.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="checks">
+  <div class="wrap">
+    <p class="kicker">Checked before it is printed</p>
+    <h2>Measured, not guessed.</h2>
+    <div class="checks">
+      <div class="check"><div class="big">0</div><p>interferences between any two parts, bought or printed</p></div>
+      <div class="check"><div class="big">0</div><p>supports needed, on any of the three plates</p></div>
+      <div class="check"><div class="big">22°</div><p>half angle of reflected light, set by the rim of the port</p></div>
+      <div class="check"><div class="big">17</div><p>screens, rendered on a computer by the firmware's own code</p></div>
+    </div>
+    <p class="note">The first meter has not been put together yet. Two numbers in the firmware come from the datasheets and are confirmed with the first build: the <a href="https://github.com/achillecalegari/calegari-meter/blob/main/docs/calibration.md">calibration guide</a> says how.</p>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <p class="kicker">Files</p>
+    <h2>Everything you need.</h2>
+    <div class="dl">
+      <a href="https://github.com/achillecalegari/calegari-meter/tree/main/print/plates"><b>Print plates</b><span>Three 3MF plates for a 180 mm bed: black, red and translucent white, parts already oriented.</span><i>print/plates →</i></a>
+      <a href="https://github.com/achillecalegari/calegari-meter/blob/main/docs/bom.md"><b>Shopping list</b><span>Screen board, sensor, encoder, battery, wire.</span><i>docs/bom.md →</i></a>
+      <a href="https://github.com/achillecalegari/calegari-meter/blob/main/docs/printing.md"><b>Printing guide</b><span>Materials, orientations, layer heights, painting the dots.</span><i>docs/printing.md →</i></a>
+      <a href="https://github.com/achillecalegari/calegari-meter/blob/main/docs/assembly.md"><b>Assembly</b><span>Seven wires and six illustrated steps.</span><i>docs/assembly.md →</i></a>
+      <a href="https://github.com/achillecalegari/calegari-meter/blob/main/docs/firmware.md"><b>Firmware</b><span>PlatformIO: one command over USB. The screens also run on a computer.</span><i>docs/firmware.md →</i></a>
+      <a href="https://github.com/achillecalegari/calegari-meter/blob/main/docs/calibration.md"><b>Calibration</b><span>The dome, the light against a meter you trust, the colour against a halogen bulb.</span><i>docs/calibration.md →</i></a>
+      <a href="https://github.com/achillecalegari/calegari-meter/blob/main/docs/using.md"><b>Using the meter</b><span>The controls, the four modes, every setting.</span><i>docs/using.md →</i></a>
+      <a href="https://github.com/achillecalegari/calegari-meter/blob/main/docs/design.md"><b>Design notes</b><span>Seven rules for the form, and why they are also rules for printing.</span><i>docs/design.md →</i></a>
+      <a href="https://github.com/achillecalegari/calegari-meter/tree/main/cad"><b>Parametric model</b><span>Python and build123d, with STEP files of every part in print/step.</span><i>cad →</i></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Designed by Achille Calegari. Licensed <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>: build it, change it, share it with credit; do not sell it.
+    It goes with the <a href="https://achillecalegari.github.io/calegari-view-2/">Calegari View 2</a>. Type: <a href="https://rsms.me/inter/">Inter</a> by Rasmus Andersson.
+  </div>
+</footer>
+
+</body>
+</html>

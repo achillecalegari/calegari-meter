@@ -1,0 +1,12 @@
+.venv/
+.pio-venv/
+firmware/.pio/
+out/
+attic/
+refs/
+vendor/*
+!vendor/README.md
+__pycache__/
+*.pyc
+.DS_Store
+render/*.blend1
