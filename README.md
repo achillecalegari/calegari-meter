@@ -38,12 +38,13 @@ A view camera wants a meter that is quick, quiet and exact, and that works with 
 | The dial | an EC11 encoder, its bushing threaded into the top wall, a knurled printed dial on its shaft |
 | The red key | a printed cap that snaps through the side wall and presses the board's BOOT button |
 | The power key | a printed pill that presses the board's power key |
+| The tray | holds the screen: it stands on the board's back on four feet, where the board has no parts, and two leaf springs printed in it take the lid's posts. The lid snaps on and presses the glass onto the window's rim with a light, even force. The battery lies on it, never squeezed |
 
 ![Exploded](docs/img/06_exploded.jpg)
 
 ## Checked before it is printed
 
-- `cad/m2check.py`: every pair of parts, printed and bought. Designed contacts have a volume budget, everything else must not touch. **0 problems.**
+- `cad/m2check.py`: every pair of parts, printed and bought. Designed contacts have a volume budget, everything else must not touch. **0 problems.** The glass touches the window's rim, the tray's feet touch the board, the posts press the springs 0.25 mm; the battery has 0.3 mm to spare.
 - `cad/m2print.py`: every printed part as it lies on the bed: no supports, the overhangs above the first millimetre only where a bridge or a 45 degree chamfer carries them.
 - `firmware`: builds with PlatformIO (`pio run`). The screens are drawn by the same code on a computer (`tools/host`): every image of the screen in these pages comes from it.
 

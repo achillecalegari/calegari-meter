@@ -21,6 +21,10 @@ def stage(n):
         export_stl(shape, str(f), tolerance=tol, angular_tolerance=0.1)
         items.append({"name": name, "file": str(f), "mat": mat})
 
+    if n == 0:                                  # the lid alone, seen from inside: posts and fingers
+        add("back", m2.back(), "print_black")
+        (out / "manifest.json").write_text(json.dumps(items, indent=1))
+        return
     txt, dot = m2.face_marks()
     add("front", m2.front(), "print_black")
     add("name", txt & slab(0.06, 0.3), "ink_light")
@@ -35,9 +39,10 @@ def stage(n):
         add("dial", m2.dial(), "print_black")
         add("dial_dot", m2.dial_dot(), "red")
     if n >= 4:
-        add("tray", m2.tray(), "print_black")
-        add("battery", m2.battery(), "silver")
+        add("tray", m2.tray(), "white")         # light, so its feet and springs read
     if n >= 5:
+        add("battery", m2.battery(), "silver")
+    if n >= 6:
         add("back", m2.back(), "print_black")
         add("dome", m2.dome(), "dome")
     (out / "manifest.json").write_text(json.dumps(items, indent=1))

@@ -7,7 +7,7 @@ BOUGHT = ("module", "as7341", "encoder", "battery")
 BUDGET = {("front", "module"): 2.0,         # the window's edge holds the glass's shoulder; guides
           ("front", "as7341"): 1.0, ("back", "as7341"): 1.0,   # its edges in the grooves, on the ledges
           ("front", "encoder"): 6.0,        # the bushing threads into the top wall (0.15 mm of thread)
-          ("back", "battery"): 9.0,         # two ribs press it 0.1 mm
+          ("back", "tray"): 3.5,            # the posts press the springs 0.35 mm
           ("dial", "encoder"): 1.5,         # the D bore grips the shaft
           ("front", "dome"): 0.3,           # crush ribs in the seat
           ("front", "measure"): 0.6, ("front", "power"): 0.4,  # the barbs

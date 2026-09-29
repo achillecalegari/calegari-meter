@@ -10,7 +10,7 @@ from m2params import *
 PARTS = {
     "front":   (m2.front,       lambda s: s),                                   # face down: Z up already
     "back":    (m2.back,        lambda s: Rot(180, 0, 0) * s),                  # back down
-    "tray":    (m2.tray,        lambda s: s),
+    "tray":    (m2.tray,        lambda s: Rot(180, 0, 0) * s),                  # plate down, feet up
     "dial":    (m2.dial,        lambda s: Rot(-90, 0, 0) * s),                  # top down
     "dome":    (m2.dome,        lambda s: Rot(90, 0, 0) * s),                   # dome up
     "measure": (m2.measure_key, lambda s: Rot(0, -90, 0) * s),                  # cap down

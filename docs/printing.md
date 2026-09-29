@@ -6,7 +6,7 @@ No part needs supports.
 
 | Plate | Parts | Material | Layers | Walls, infill |
 |---|---|---|---|---|
-| `plate_1_black.3mf` | front shell, back lid, battery tray, dial, power key | black PETG or ASA, matte if you can | 0.16 mm | 3 walls, 20 % gyroid |
+| `plate_1_black.3mf` | front shell, back lid, tray, dial, power key | black PETG or ASA, matte if you can | 0.16 mm | 3 walls, 20 % gyroid |
 | `plate_2_red.3mf` | two red keys | red PETG or ASA | 0.12 mm | 100 % |
 | `plate_3_dome.3mf` | two domes | translucent white PETG | 0.08 mm | 100 % |
 
@@ -16,7 +16,7 @@ No part needs supports.
 |---|---|---|
 | front shell | face down | the face, with the window, the engraved name and the dot's pit, is the first layer: flat as the plate. Its edge is a 45 degree chamfer, not a round, so it prints clean. The seam's edge is on top |
 | back lid | back down | the same: the back is the first layer, its edge a chamfer; the snaps and the ribs stand up from it |
-| battery tray | flat | 0.8 mm |
+| tray | plate down, feet up | its two leaf springs lie in the bed plane, so they bend along the layers, never across them |
 | dial | top down | the knurl's grooves stand vertical, so each is a clean line in every layer; the red dot's pit is in the first layer |
 | red key, power key | cap down | the cap is the first layer, the stem and its barbs grow up from it |
 | dome | flange down | a solid half sphere: no roof to bridge. At 0.08 mm its steps are small, and they diffuse the light anyway |

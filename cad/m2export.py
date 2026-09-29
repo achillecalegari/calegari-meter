@@ -36,7 +36,7 @@ def catalogue():
     return [
         ("front", m2.front(), EYE, 1, "black", "face down: the window, the name and the dot on the bed; the seam's edge on top"),
         ("back", m2.back(), R(math.pi, [1, 0, 0]), 1, "black", "back down: its chamfered edge on the bed, snaps and ribs on top"),
-        ("tray", m2.tray(), EYE, 1, "black", "flat"),
+        ("tray", m2.tray(), R(math.pi, [1, 0, 0]), 1, "black", "plate down, feet up: the two leaf springs lie in the bed plane"),
         ("dial", m2.dial(), R(-math.pi / 2, [1, 0, 0]), 1, "black", "top down: the knurl's grooves stand vertical, the dot's pit on the bed"),
         ("power_key", m2.power_key(), R(-math.pi / 2, [0, 1, 0]), 1, "black", "cap down, stem up"),
         ("measure_key", m2.measure_key(), R(-math.pi / 2, [0, 1, 0]), 2, "red", "cap down, stem up; a spare"),

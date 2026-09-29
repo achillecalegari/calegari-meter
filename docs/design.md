@@ -29,6 +29,12 @@ The AS7341 is the other half: eleven channels, so one chip gives light, colour a
 
 Knowing whether the dome is on usually takes a switch. Here the sensor's own LED does it: a small window above the LED, hidden under the dome's flange, lets its light into the flange, and the flange carries some of it round to the port. No light back, no dome.
 
+## What holds the screen
+
+The glass stops on the window's rim, where the face meets its rounded shoulder. From behind, a tray the size of the whole inside stands on the board on four feet, placed where the board has no parts: along its foot, at the two top corners either side of the header, up its right edge. Two leaf springs are cut into the tray and printed flat, so they bend along the layers. The lid has two posts that press them 0.25 mm when it snaps on: about 5 N in all, the same on every meter whatever the printer's tolerances, and the board is never pressed on a part. The battery lies on the tray with room to spare, held at its corners by four fingers of the lid, never squeezed.
+
+![What holds the screen](img/holding.svg)
+
 ## The screens
 
 The type is Inter, in five sizes, drawn with 16 levels of grey so the edges are smooth on the AMOLED. The answer is always the biggest thing on the screen, set like the numbers on a shutter dial: "1/" small, "30" large. The value the dial changes has a red line under it, and turning the dial is all you do to change it. At the foot, a scale slides like a real dial to the answer.

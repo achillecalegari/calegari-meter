@@ -38,7 +38,7 @@ def path(pts, colour, hops=()):
 
 
 add(f'<text x="40" y="46" font-size="22" font-weight="700" fill="{INK}">Seven wires, fourteen joints</text>')
-add(f'<text x="40" y="72" font-size="14" fill="{GREY}">Silicone wire, 28 or 30 AWG, about 60 mm each, cut to length in the case.</text>')
+add(f'<text x="40" y="72" font-size="14" fill="{GREY}">30 AWG silicone wire, about 60 mm each. The holes in the header are 0.7 mm at a 1.27 mm pitch.</text>')
 
 # the Waveshare's header: its back, along the top edge
 add(f'<rect x="{P0 - 30}" y="{YH - 44}" width="{PITCH * 14 + 60}" height="78" rx="14" fill="{SOFT}"/>')

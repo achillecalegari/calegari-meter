@@ -233,12 +233,25 @@ def back():
         ribs.append(box_at(*sorted((x - s * 1.2, x - s * 0.08)), y - 3, y + 3, SEAM_Z - 4.0, SEAM_Z + 0.5))
         ribs.append(box_at(*sorted((x - s * 1.2, x + s * 0.4)), y - 3, y + 3, SEAM_Z + 0.02, SEAM_Z + 1.2))   # tied into the wall
         ribs.append(Pos(x - s * 0.08, y, SEAM_Z - 2.2) * Rot(90, 0, 0) * Rot(0, 0, 45) * Box(0.5, 0.5, 5.4))
-    # the battery: two ribs press it onto the tray
+    # the battery: two ribs over it, not touching (a cell must not be squeezed)
     for yy in (MOD_Y - 12, MOD_Y + 12):
-        ribs.append(box_at(-BAT[1] / 2 + 3, BAT[1] / 2 - 3, yy - 0.8, yy + 0.8, BAT_Z0 + BAT[0] - 0.1, Z_IN1 + 0.3))
+        ribs.append(box_at(-BAT[1] / 2 + 3, BAT[1] / 2 - 3, yy - 0.8, yy + 0.8, BAT_Z0 + BAT[0] + BAT_GAP, Z_IN1 + 0.3))
     ribs.append(encoder_cheek(1) + box_at(ENC_X - 3, ENC_X + 3, Y_IN1 - 2, Y_IN1 + 0.3, ENC_Z + ENC_BODY[1] / 2 + 0.6, Z_IN1 + 0.3))
     for r in ribs:
         b += r & skin
+    # four fingers round the cell's corners keep it in its place, with room all round
+    bw, bh = BAT[1] / 2 + BAT_GAP, BAT[2] / 2 + BAT_GAP
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            cx, cy = sx * bw, MOD_Y + sy * bh
+            zf = BAT_Z0 + 2.0
+            b += box_at(*sorted((cx, cx + sx * 0.8)), *sorted((cy + sy * 0.8, cy - sy * 6)), zf, Z_IN1 + 0.3)
+            b += box_at(*sorted((cx + sx * 0.8, cx - sx * 6)), *sorted((cy, cy + sy * 0.8)), zf, Z_IN1 + 0.3)
+    # the two posts that hold the module: down to the tray's springs, pressing them SPRING[3]
+    d, py, px = POST
+    for sx in (-1, 1):
+        zt = BAT_Z0 - SPRING[3]
+        b += Pos(sx * px, py, zt) * Cylinder(d / 2, Z_IN1 + 0.3 - zt, align=(Align.CENTER, Align.CENTER, Align.MIN))
     # the AS7341's back edge sits in a groove in the lid
     b -= box_at(AS_X - AS_BOARD[0] / 2 - 0.15, AS_X + AS_BOARD[0] / 2 + 0.15, AS_Y0 - 0.1, AS_Y0 + 1.57 + 0.1,
                 Z_IN1 - 0.1, AS_Z1 + 0.15)
@@ -249,9 +262,26 @@ def back():
 
 @lru_cache(maxsize=None)
 def tray():
-    """A thin tray over the module's back: the battery lies on it, not on the parts."""
-    t = plate(GW - 1.0, GH - 1.0, GR - 0.5, BAT_Z0 - TRAY_T, BAT_Z0, 0, MOD_Y)
-    t -= box_at(-8, 8, MOD_Y + GH / 2 - 4, MOD_Y + GH / 2, BAT_Z0 - 2, BAT_Z0 + 1)   # the wires pass here
+    """Between the module and the battery, wall to wall. Feet stand on the board where it has no parts; two
+    leaf springs, cut in the plate and printed flat, take the lid's posts: the lid holds the module against the
+    window with a light, even force. Printed plate down, feet up."""
+    z0, z1 = BAT_Z0 - TRAY_T, BAT_Z0
+    y0, y1 = Y_IN0 + 0.2, MOD_Y + GH / 2 + 2.0
+    t = plate(2 * (XI - 0.2), y1 - y0, R_FACE - WALL - 0.2, z0, z1, 0, (y0 + y1) / 2)
+    for x0, x1, fy0, fy1 in TRAY_FEET:
+        t += box_at(x0, x1, fy0, fy1, PCB_BACK, z0 + 0.01)
+    # the leaf springs: a tongue along y, free at its far end, the post on its tip
+    L, w, slot, _ = SPRING
+    d, py, px = POST
+    for s in (-1, 1):
+        x = s * px
+        ya, yb = py - L + d / 2, py + d / 2 + 0.4          # the tongue: root at ya, tip past the post
+        t -= box_at(x - w / 2 - slot, x + w / 2 + slot, ya, yb + slot, z0 - 1, z1 + 1)
+        t += box_at(x - w / 2, x + w / 2, ya - 0.01, yb, z0, z1)
+    # the battery's plug comes up through here from its socket on the board's edge; the header's wires there
+    x0, py0, py1 = BAT_PLUG
+    t -= box_at(x0, XI, py0, py1, z0 - 5, z1 + 1)
+    t -= box_at(-10.5, 10.5, 41.0, y1 + 1, z0 - 5, z1 + 1)
     return t
 
 

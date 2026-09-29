@@ -10,7 +10,7 @@ About 60 EUR, most of it the screen board. Prices are indicative, September 2026
 | 1 | **Adafruit AS7341** 10-channel light sensor, product 4698 | the flat board with two STEMMA QT sockets; we solder to its pins, the sockets stay empty | 16 EUR |
 | 1 | **EC11 rotary encoder**, 20 detents, 6 mm D shaft, M7 bushing | the common 12 x 12 mm body with three pins on one side and two (the switch) on the other. The shaft is cut to 8 mm above the body | 2 EUR |
 | 1 | **LiPo cell 603040**, 3.7 V, 500 to 600 mAh | at most 6.0 x 31 x 40 mm, with a 2-pin **MX1.25** plug (Waveshare sells one to fit). **Check the polarity** against the BAT marks on the board before you plug it in: cells are sold both ways round | 6 EUR |
-| 7 | silicone wire, 28 or 30 AWG | about 60 mm each; seven colours help | 1 EUR |
+| 7 | silicone wire, 30 AWG | about 60 mm each; seven colours help. The board's header has 0.7 mm holes at a 1.27 mm pitch | 1 EUR |
 
 Also: a soldering iron with a fine tip, solder, a pair of flush cutters, a small hacksaw or a rotary tool to cut the encoder's shaft, a drop of red enamel paint (a paint pen or nail polish) and, if you like, a little white for the engraved name.
 
@@ -20,7 +20,7 @@ Also: a soldering iron with a fine tip, solder, a pair of flush cutters, a small
 |---|---|---|---|
 | 1 | front shell | black PETG or ASA | 1 |
 | 1 | back lid | black PETG or ASA | 1 |
-| 1 | battery tray | black PETG or ASA | 1 |
+| 1 | tray (holds the screen) | black PETG or ASA | 1 |
 | 1 | dial | black PETG or ASA | 1 |
 | 1 | power key | black PETG or ASA | 1 |
 | 2 | red key (one spare) | red PETG or ASA | 2 |

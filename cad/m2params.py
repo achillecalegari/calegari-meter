@@ -51,7 +51,18 @@ T = 21.4                              # thickness: the AS7341 lies across it und
 
 # ------------------------------------------------------------------------------------------ battery
 BAT = (6.0, 31.0, 40.0)               # up to 603040 (about 700 mAh) with an MX1.25 plug: thick, wide, tall
-TRAY_T = 0.8                          # a printed tray between the module's parts and the battery
+TRAY_T = 1.2                          # the tray between the module and the battery: it also holds the module
+# What holds the module: the lid's two posts press two printed leaf springs in the tray; the tray stands on the
+# module's board on feet placed where the board has no parts; the board pushes the glass onto the window's rim.
+PCB_BACK = GLASS_Z + 7.4              # the back of the Waveshare's board (maker's model: 6.8)
+TRAY_FEET = [(-14.0, 14.0, 4.7, 6.0),              # along the foot of the board: x0, x1, y0, y1
+             (-15.8, -11.0, 41.5, 44.6),           # the top corners, either side of the header's 1.27 mm holes
+             (11.0, 16.2, 41.5, 44.6),
+             (14.8, 15.7, 27.0, 38.0)]             # up the right edge, clear of the parts
+SPRING = (7.1, 2.4, 0.6, 0.25)        # the leaf springs: length, width, slot, how far the posts press them (2.4 N each, 1.3 % strain)
+POST = (2.2, 35.0, 17.6)              # the lid's posts: diameter, y, |x|
+BAT_PLUG = (7.5, 17.5, 25.5)          # the opening over the battery socket and its plug: x0 (to the wall), y0, y1
+BAT_GAP = 0.3                         # the cell is never squeezed: room to breathe over it
 BAT_Z0 = GLASS_Z + MOD_T + 0.2 + TRAY_T
 
 # ------------------------------------------------------------------------------------------ the top
